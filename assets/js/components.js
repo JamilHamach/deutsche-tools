@@ -35,6 +35,7 @@
                             <span class="category-label">Finanzen & Steuern</span>
                             <a href="${base}/tools/brutto-netto-rechner.html">💶 Brutto-Netto Rechner</a>
                             <a href="${base}/tools/kfz-steuer-rechner.html">🚗 KFZ-Steuer Rechner</a>
+                            <a href="${base}/tools/abfindungs-rechner.html">💼 Abfindungsrechner</a>
                             <a href="${base}/tools/einkommens-rechner.html">💰 Gesamt-Einkommen</a>
                         </div>
                         <div class="dropdown-category">
@@ -47,6 +48,7 @@
                         </div>
                         <div class="dropdown-category">
                             <span class="category-label">Arbeit & Recht</span>
+                            <a href="${base}/tools/ueberstunden-rechner.html">⏰ Überstunden Rechner</a>
                             <a href="${base}/tools/kuendigung-generator.html">📝 Vertrag Kündigen</a>
                             <a href="${base}/tools/kuendigungsfrist-rechner.html">📅 Kündigungsfrist Rechner</a>
                         </div>
@@ -84,17 +86,19 @@
                     </a>
                     <p>
                         Kostenlose Online-Tools für finanzielle Berechnungen nach deutschem Recht. 
-                        Präزise, aktuell und datenschutzkonform.
+                        Präzise, aktuell und datenschutzkonform.
                     </p>
                 </div>
                 
                 <div class="footer-col">
-                    <h4>Rechner</h4>
+                    <h4>Tools</h4>
                     <ul class="footer-links">
-                        <li><a href="${base}/tools/brutto-netto-rechner.html">Brutto-Netto Rechner</a></li>
-                        <li><a href="${base}/tools/kfz-steuer-rechner.html">KFZ-Steuer Rechner</a></li>
-                        <li><a href="${base}/tools/einkommens-rechner.html">Gesamt-Einkommen</a></li>
+                        <li><a href="${base}/tools/brutto-netto-rechner.html">💶 Brutto-Netto Rechner</a></li>
+                        <li><a href="${base}/tools/kfz-steuer-rechner.html">🚗 KFZ-Steuer Rechner</a></li>
+                        <li><a href="${base}/tools/abfindungs-rechner.html">💼 Abfindungsrechner</a></li>
+                        <li><a href="${base}/tools/einkommens-rechner.html">💰 Gesamt-Einkommen</a></li>
                         <li><a href="${base}/tools/kuendigung-generator.html">📝 Vertrag Kündigen</a></li>
+                        <li><a href="${base}/tools/ueberstunden-rechner.html">⏰ Überstunden Rechner</a></li>
                         <li><a href="${base}/tools/wohngeld-rechner.html">🏠 Wohngeld Rechner</a></li>
                         <li><a href="${base}/tools/elterngeld-rechner.html">🍼 Elterngeld Rechner</a></li>
                         <li><a href="${base}/tools/kinderzuschlag-rechner.html">👶 Kinderzuschlag Rechner</a></li>
@@ -174,8 +178,11 @@
 
         if (mobileMenuBtn && navLinks) {
             mobileMenuBtn.addEventListener('click', function () {
-                navLinks.classList.toggle('active');
+                const isActive = navLinks.classList.toggle('active');
                 mobileMenuBtn.classList.toggle('active');
+
+                // Prevent scrolling when menu is open
+                document.body.style.overflow = isActive ? 'hidden' : '';
 
                 // Animate hamburger icon
                 const spans = mobileMenuBtn.querySelectorAll('span');
@@ -190,19 +197,36 @@
                 }
             });
 
-            // Close menu when clicking a link
+            // Close menu or toggle accordion when clicking a link
             navLinks.querySelectorAll('a').forEach(function (link) {
                 link.addEventListener('click', function (e) {
-                    // Mobile Dropdown Toggle
-                    if (window.innerWidth <= 768 && link.classList.contains('dropdown-trigger')) {
+                    const isDropdownTrigger = link.classList.contains('dropdown-trigger');
+                    const isMobile = window.innerWidth <= 768;
+
+                    if (isMobile && isDropdownTrigger) {
                         e.preventDefault();
                         const parent = link.closest('.nav-dropdown');
                         parent.classList.toggle('active');
+
+                        // Rotate chevron
+                        const chevron = link.querySelector('.chevron');
+                        if (chevron) {
+                            chevron.style.transform = parent.classList.contains('active') ? 'rotate(180deg)' : 'none';
+                        }
                         return;
                     }
 
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
+                    // Close menu for regular links
+                    if (!isDropdownTrigger) {
+                        navLinks.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.style.overflow = '';
+                        // Reset icon
+                        const spans = mobileMenuBtn.querySelectorAll('span');
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
                 });
             });
         }

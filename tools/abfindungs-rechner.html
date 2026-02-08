@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abfindungsrechner 2026 - Netto-Auszahlung mit Fünftelregelung berechnen | Deutsche Tools</title>
+    <meta name="description"
+        content="Berechnen Sie Ihre Netto-Abfindung nach der Fünftelregelung. Berücksichtigt die aktuellen Steuersätze 2026 in Deutschland.">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section class="calculator-section">
+            <div class="container">
+                <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                    <span class="ad-placeholder-text">Werbung</span>
+                </div>
+
+                <div class="calculator-header">
+                    <h1>Abfindungsrechner 2026</h1>
+                    <p>Berechnen Sie Ihre Netto-Abfindung unter Berücksichtigung der Fünftelregelung.</p>
+                </div>
+
+                <div class="calculator-wrapper">
+                    <!-- Input Panel -->
+                    <div class="input-panel">
+                        <div class="panel-title">
+                            <span class="icon">💼</span>
+                            <span>Eingaben</span>
+                        </div>
+
+                        <div class="panel-subtitle"
+                            style="margin-bottom: 1.5rem; color: var(--color-accent); font-weight: 600;">
+                            <i class="fas fa-calculator"></i> 1. Abfindungshöhe schätzen (optional)
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="yearsOfService">Jahre im Betrieb</label>
+                                <input type="number" id="yearsOfService" class="form-control" placeholder="z.B. 10"
+                                    step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="monthlySalary">Monatsgehalt (Brutto)</label>
+                                <div class="input-group">
+                                    <input type="number" id="monthlySalary" class="form-control"
+                                        placeholder="z.B. 4000">
+                                    <div class="input-addon">€</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="severanceFactor">Berechnungsfaktor</label>
+                            <select id="severanceFactor" class="form-control">
+                                <option value="0.5">0,5 (Gesetzlicher Standard / Abfindungsformel)</option>
+                                <option value="1.0">1,0 (Sehr großzügig / Branchenüblich)</option>
+                                <option value="0.75">0,75 (Mittlerer Standard)</option>
+                            </select>
+                            <small>Die Faustformel lautet: Jahre × Monatsgehalt × Faktor.</small>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0;">
+
+                        <div class="panel-subtitle"
+                            style="margin-bottom: 1.5rem; color: var(--color-accent); font-weight: 600;">
+                            <i class="fas fa-percentage"></i> 2. Netto-Berechnung (Fünftelregelung)
+                        </div>
+
+                        <div class="form-group">
+                            <label for="severanceGross">Abfindungssumme (Brutto)</label>
+                            <div class="input-group">
+                                <input type="number" id="severanceGross" class="form-control" value="50000" step="1000">
+                                <div class="input-addon">€</div>
+                            </div>
+                            <small>Wird automatisch berechnet, falls Felder oben ausgefüllt sind.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="annualGross">Vorauss. Brutto-Jahreseinkommen (ohne Abfindung)</label>
+                            <div class="input-group">
+                                <input type="number" id="annualGross" class="form-control" value="45000" step="1000">
+                                <div class="input-addon">€</div>
+                            </div>
+                            <small class="form-text">Relevant für die Berechnung der Steuerprogression.</small>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="taxClass">Steuerklasse</label>
+                                <select id="taxClass" class="form-control">
+                                    <option value="1">Klasse 1</option>
+                                    <option value="2">Klasse 2</option>
+                                    <option value="3">Klasse 3</option>
+                                    <option value="4">Klasse 4</option>
+                                    <option value="5">Klasse 5</option>
+                                    <option value="6">Klasse 6</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="churchTax">Kirchensteuer</label>
+                                <select id="churchTax" class="form-control">
+                                    <option value="0">Nein</option>
+                                    <option value="8">Ja (8% - BW/BY)</option>
+                                    <option value="9">Ja (9% - Rest)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                            <i class="fas fa-sync-alt"></i> Jetzt berechnen
+                        </button>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel">
+                        <div class="main-result" style="background: var(--gradient-accent); border: none;">
+                            <div class="main-result-label" style="color: rgba(255,255,255,0.8)">Zusätzliches Netto
+                                (geschätzt)</div>
+                            <div class="main-result-value" id="netSeverance" style="color: white; font-size: 3.5rem;">
+                                0,00 €</div>
+                            <div class="main-result-subtext" id="summaryText" style="color: rgba(255,255,220,0.9)">
+                                Bereit</div>
+                        </div>
+
+                        <div class="results-breakdown">
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">⚖️</span>
+                                    <span>Steuervorteil durch Fünftelregelung</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Steuerersparnis</span>
+                                    <span class="breakdown-item-value positive" id="taxSaving">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Effektive Steuerlast</span>
+                                    <span class="breakdown-item-value" id="effectiveTax">0,00 %</span>
+                                </div>
+                            </div>
+
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">📊</span>
+                                    <span>Vergleich</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Netto (ohne Regelung)</span>
+                                    <span class="breakdown-item-value" id="netWithoutReg">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Gesamt-Jahresnetto</span>
+                                    <span class="breakdown-item-value" id="totalAnnualNet"
+                                        style="color: var(--color-accent);">0,00 €</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <i class="fas fa-info-circle icon"></i>
+                            <p><strong>Hinweis:</strong> Abfindungen sind i.d.R. sozialversicherungsfrei, unterliegen
+                                aber der Einkommensteuer. Die Fünftelregelung mildert die Progression ab.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Cards Section -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>Die Fünftelregelung</h3>
+                        <p>Bei der Fünftelregelung wird die Abfindung fiktiv auf fünf Jahre verteilt. Dadurch sinkt der
+                            Steuersatz (Progressionsvorteil), da nur ein Fünftel des Betrags zur Berechnung Ihres
+                            persönlichen Steuersatzes herangezogen wird.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Sozialversicherung</h3>
+                        <p>Eine echte Abfindung als Entschädigung für den Verlust des Arbeitsplatzes ist in der Regel
+                            beitragsfrei in der Kranken-, Pflege-, Renten- und Arbeitslosenversicherung. Das erhöht Ihr
+                            Netto deutlich!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/abfindung.js"></script>
+</body>
+
+</html>

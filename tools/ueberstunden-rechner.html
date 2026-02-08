@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Überstunden Rechner 2026 - Auszahlung & Freizeitausgleich berechnen | Deutsche Tools</title>
+    <meta name="description"
+        content="Berechnen Sie den Wert Ihrer Überstunden inklusive Zuschläge. Berücksichtigt die neuen steuerfreien Regelungen für 2026 in Deutschland.">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section class="calculator-section">
+            <div class="container">
+                <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                    <span class="ad-placeholder-text">Werbung</span>
+                </div>
+
+                <div class="calculator-header">
+                    <h1>Überstunden Rechner 2026</h1>
+                    <p>Berechnen Sie, wie viel Ihre Mehrarbeit wert ist – als Auszahlung oder Freizeit.</p>
+                </div>
+
+                <div class="calculator-wrapper">
+                    <!-- Input Panel -->
+                    <div class="input-panel">
+                        <div class="panel-title">
+                            <span class="icon">⏰</span>
+                            <span>Eingaben</span>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="monthlyGross">Monatliches Brutto</label>
+                                <div class="input-group">
+                                    <input type="number" id="monthlyGross" class="form-control" value="3000" step="100">
+                                    <div class="input-addon">€</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="weeklyHours">Wochenstunden</label>
+                                <input type="number" id="weeklyHours" class="form-control" value="40" step="0.5">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label for="overtimeHours">Überstunden</label>
+                                <input type="number" id="overtimeHours" class="form-control" value="10" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="taxRate">Abzüge (ca. %)</label>
+                                <input type="number" id="taxRate" class="form-control" value="35" step="1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="surcharge">Überstundenzuschlag</label>
+                            <select id="surcharge" class="form-control">
+                                <option value="0">Kein Zuschlag (0%)</option>
+                                <option value="25" selected>Standard (25%)</option>
+                                <option value="50">Erhöht (50%)</option>
+                                <option value="100">Feiertag/Sonntag (100%)</option>
+                            </select>
+                            <small>Info: Zuschläge bis 25% sind ab 2026 steuerfrei (Basisbetrag bleibt
+                                steuerpflichtig).</small>
+                        </div>
+
+                        <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                            <i class="fas fa-sync-alt"></i> Neu berechnen
+                        </button>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel">
+                        <div class="main-result" style="background: var(--gradient-accent); border: none;">
+                            <div class="main-result-label" style="color: rgba(255,255,255,0.8)">Netto-Auszahlung
+                                (geschätzt)</div>
+                            <div class="main-result-value" id="totalNetPay" style="color: white; font-size: 3.5rem;">
+                                0,00 €</div>
+                            <div class="main-result-subtext" id="summaryText" style="color: rgba(255,255,220,0.9)">
+                                Bereit</div>
+                        </div>
+
+                        <div class="results-breakdown">
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">💰</span>
+                                    <span>Finanzieller Breakdown</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Brutto-Gesamtwert</span>
+                                    <span class="breakdown-item-value" id="totalGrossPay"
+                                        style="color: var(--color-accent);">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Basis-Stundenlohn</span>
+                                    <span class="breakdown-item-value" id="hourlyRate">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Wert der Sunden</span>
+                                    <span class="breakdown-item-value" id="baseOvertimePay">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">Zuschlagssumme</span>
+                                    <span class="breakdown-item-value" id="surchargePay">0,00 €</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-item-label">🚀 Davon Steuerfrei (2026)</span>
+                                    <span class="breakdown-item-value positive" id="taxFreeAmount">0,00 €</span>
+                                </div>
+                            </div>
+
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">⏳</span>
+                                    <span>Freizeitausgleich</span>
+                                </div>
+                                <div class="summary-stats">
+                                    <div class="stat-box">
+                                        <div class="stat-label">Stunden (1:1)</div>
+                                        <div class="stat-value" id="timeOffBasic">0h</div>
+                                    </div>
+                                    <div class="stat-box">
+                                        <div class="stat-label">Inkl. Zuschlag</div>
+                                        <div class="stat-value" id="timeOffTotal" style="color: var(--color-accent);">0h
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <i class="fas fa-lightbulb icon"></i>
+                            <p>Tipp: Bei 10 Überstunden mit 25% Zuschlag gewinnen Sie 2,5 zusätzliche Stunden Freizeit!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Cards Section -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Rechtliche Grundlagen</h3>
+                        <p>Das Arbeitszeitgesetz (ArbZG) bildet den Rahmen für Mehrarbeit in Deutschland. Die tägliche
+                            Arbeitszeit darf 8 Stunden im Durchschnitt nicht überschreiten, kann aber auf bis zu 10
+                            Stunden verlängert werden, wenn ein Ausgleich erfolgt.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <h3>Steuerfreiheit 2026</h3>
+                        <p>Im Rahmen der "Wachstumsinitiative" plant die Bundesregierung, Überstundenzuschläge bis zu
+                            25% steuer- und sozialabgabenfrei zu stellen, sofern diese für Arbeit über die 40.
+                            Wochenstunde hinaus geleistet werden.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/ueberstunden.js"></script>
+</body>
+
+</html>
