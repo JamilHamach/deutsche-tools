@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Bußgeldrechner 2026 - Berechnen Sie Strafen für Geschwindigkeitsüberschreitungen (Blitzer) inkl. Bußgeld, Punkten und Fahrverbot.">
+    <meta name="keywords"
+        content="Bußgeldrechner, Blitzer Rechner, Geschwindigkeit, StVO, 2026, Strafe, Punkte Flensburg">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Bußgeldrechner 2026 (Blitzer) | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Bußgeldrechner 2026 (Blitzer)</h1>
+                <p>Prüfen Sie schnell und einfach, welche Strafe bei einer Geschwindigkeitsüberschreitung droht –
+                    basierend auf dem aktuellen Bußgeldkatalog 2026.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">🏎️</span>
+                        Verstoß-Details
+                    </h2>
+
+                    <!-- Location Mode -->
+                    <div class="form-group">
+                        <label>Ort des Verstoßes</label>
+                        <select id="location" class="form-control">
+                            <option value="innerorts" selected>Innerorts (Innerhalb geschlossener Ortschaften)</option>
+                            <option value="ausserorts">Außerorts (Autobahn, Landstraße, etc.)</option>
+                        </select>
+                    </div>
+
+                    <!-- Vehicle Type -->
+                    <div class="form-group">
+                        <label>Fahrzeugtyp</label>
+                        <select id="vehicleType" class="form-control">
+                            <option value="pkw" selected>PKW / Motorrad</option>
+                            <option value="lkw">LKW / Transporter (> 3,5t)</option>
+                            <option value="gespann">PKW mit Anhänger</option>
+                        </select>
+                    </div>
+
+                    <!-- Probezeit Toggle -->
+                    <div class="form-group">
+                        <label class="toggle-container" for="probezeit">
+                            <span class="toggle-label">In der Probezeit?</span>
+                            <div class="switch">
+                                <input type="checkbox" id="probezeit">
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="grid-2">
+                        <!-- Allowed Speed -->
+                        <div class="form-group">
+                            <label for="allowedSpeed">Erlaubt (km/h)</label>
+                            <div class="input-group">
+                                <input type="number" id="allowedSpeed" class="form-control" placeholder="z.B. 50"
+                                    value="" min="0" max="350" step="10">
+                                <span class="input-addon">km/h</span>
+                            </div>
+                        </div>
+
+                        <!-- Driven Speed -->
+                        <div class="form-group">
+                            <label for="drivenSpeed">Gefahren (km/h)</label>
+                            <div class="input-group">
+                                <input type="number" id="drivenSpeed" class="form-control" placeholder="z.B. 65"
+                                    value="" min="0" max="350" step="1">
+                                <span class="input-addon">km/h</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Die Toleranz (3 km/h bzw. 3%) wird automatisch im nächsten Schritt abgezogen.</p>
+                    </div>
+
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        Strafe berechnen
+                    </button>
+
+                    <!-- Sidebar Ad on Mobile / Space Filler -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: var(--spacing-xl);">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+
+
+                    <div class="main-result">
+                        <div class="main-result-label">Berechnetes Ergebnis</div>
+                        <div id="fineAmount" class="main-result-value">0,00 €</div>
+                        <div id="resultSummary" class="main-result-subtext">Geben Sie Ihre Daten ein für eine Schätzung.
+                        </div>
+                    </div>
+
+
+
+                    <div class="results-breakdown">
+                        <div class="breakdown-section">
+                            <h3 class="breakdown-title">
+                                <span class="icon">📊</span>
+                                Berechnung
+                            </h3>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Gemessene Geschwindigkeit</span>
+                                <span id="measuredSpeed" class="breakdown-item-value">-</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Toleranz-Abzug</span>
+                                <span id="toleranceValue" class="breakdown-item-value negative">-</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Vorgeworfene Geschwindigkeit (Netto)</span>
+                                <span id="netSpeed" class="breakdown-item-value">-</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Überschreitung</span>
+                                <span id="overSpeed" class="breakdown-item-value negative"
+                                    style="font-weight: 700;">-</span>
+                            </div>
+                        </div>
+
+                        <div class="breakdown-section">
+                            <h3 class="breakdown-title">
+                                <span class="icon">⚖️</span>
+                                Konsequenzen
+                            </h3>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Punkte in Flensburg</span>
+                                <span id="pointsAmount" class="breakdown-item-value">0</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Fahrverbot</span>
+                                <span id="banDuration" class="breakdown-item-value">Kein Fahrverbot</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="background: rgba(239, 68, 68, 0.1); border-color: var(--color-error);">
+                        <span class="icon" style="color: var(--color-error);">⚠️</span>
+                        <p style="color: var(--color-text-secondary); font-size: 0.8rem;">
+                            Hinweis: Bei wiederholten Verstößen (ab 26 km/h) oder während der Probezeit können härtere
+                            Strafen drohen. Alle Angaben ohne Gewähr.
+                        </p>
+                    </div>
+
+                    <!-- Extra Ad Under Results -->
+                    <div class="ad-placeholder ad-responsive" style="margin-top: var(--spacing-lg);">
+                        <span class="ad-placeholder-text">Werbung - Responsive</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/bussgeld.js"></script>
+    <script>
+        // Update measured speed display in breakdown
+        document.getElementById('drivenSpeed').addEventListener('input', function () {
+            document.getElementById('measuredSpeed').textContent = this.value + ' km/h';
+        });
+        document.getElementById('measuredSpeed').textContent = document.getElementById('drivenSpeed').value + ' km/h';
+    </script>
+</body>
+
+</html>

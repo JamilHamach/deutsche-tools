@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="KFZ-Steuer Rechner 2026 - Berechnen Sie die jährliche Kraftfahrzeugsteuer für Ihr Auto nach aktuellem deutschen Steuerrecht inkl. CO2-Komponente.">
+    <meta name="keywords" content="KFZ-Steuer Rechner, Kraftfahrzeugsteuer, Auto Steuer, CO2 Steuer, 2026, Deutschland">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>KFZ-Steuer Rechner 2026 | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>KFZ-Steuer Rechner 2026</h1>
+                <p>Berechnen Sie schnell und einfach die jährliche Kraftfahrzeugsteuer für Ihr Fahrzeug – basierend auf
+                    Hubraum und CO2-Ausstoß nach aktuellem deutschen Recht.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">🚗</span>
+                        Fahrzeugdaten
+                    </h2>
+
+                    <!-- Fuel Type -->
+                    <div class="form-group">
+                        <label for="kraftstoff">Kraftstoffart</label>
+                        <select id="kraftstoff" class="form-control">
+                            <option value="benzin">Benzin (Otto)</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="elektro">Elektro (rein batterieelektrisch)</option>
+                        </select>
+                    </div>
+
+                    <!-- Electric Vehicle Notice -->
+                    <div class="info-box" id="elektroHinweis" style="display: none;">
+                        <span class="icon">⚡</span>
+                        <p>Elektrofahrzeuge sind bei Erstzulassung bis 31.12.2030 von der Kfz-Steuer befreit – bis
+                            längstens 31.12.2035!</p>
+                    </div>
+
+                    <!-- Engine Displacement -->
+                    <div class="form-group" id="hubraumGroup">
+                        <label for="hubraum">Hubraum</label>
+                        <div class="input-group">
+                            <input type="number" id="hubraum" class="form-control" placeholder="z.B. 1600" min="0"
+                                step="1" value="1600">
+                            <span class="input-addon">cm³</span>
+                        </div>
+                        <small>Finden Sie diesen Wert in Ihrer Zulassungsbescheinigung Teil I (Feld P.1)</small>
+                    </div>
+
+                    <!-- CO2 Emissions -->
+                    <div class="form-group" id="co2Group">
+                        <label for="co2">CO2-Ausstoß (WLTP)</label>
+                        <div class="input-group">
+                            <input type="number" id="co2" class="form-control" placeholder="z.B. 140" min="0" step="1"
+                                value="140">
+                            <span class="input-addon">g/km</span>
+                        </div>
+                        <small>Finden Sie diesen Wert in Ihrer Zulassungsbescheinigung Teil I (Feld V.7)</small>
+                    </div>
+
+                    <!-- First Registration Date -->
+                    <div class="form-group">
+                        <label>Erstzulassung</label>
+                        <div class="date-selector-group">
+                            <select id="ez_monat" class="form-control date-select" aria-label="Monat"></select>
+                            <select id="ez_jahr" class="form-control date-select" aria-label="Jahr"></select>
+                        </div>
+                        <input type="hidden" id="erstzulassung" value="2024-01-01">
+                        <small>Datum der ersten Zulassung des Fahrzeugs</small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Steuer berechnen
+                    </button>
+
+                    <!-- Mid-Panel Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: 2rem;">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Ihre Kfz-Steuer
+                    </h2>
+
+                    <!-- Main Result -->
+                    <div class="main-result">
+                        <div class="main-result-label">Jährliche Kfz-Steuer</div>
+                        <div class="main-result-value" id="jahresSteuer">0,00 €</div>
+                        <div class="main-result-subtext">Das entspricht <strong id="monatsSteuer">0,00 €</strong> pro
+                            Monat</div>
+                    </div>
+
+                    <!-- Verbrenner Details -->
+                    <div class="results-breakdown" id="verbrennerDetails">
+                        <!-- Hubraum Component -->
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">⚙️</span>
+                                Hubraum-Komponente
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Berechnung</span>
+                                <span class="breakdown-item-value" id="hubraumEinheiten">0 × 2,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Betrag</span>
+                                <span class="breakdown-item-value" id="hubraumBetrag">0,00 €</span>
+                            </div>
+                        </div>
+
+                        <!-- CO2 Component -->
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">💨</span>
+                                CO2-Komponente
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Über Freibetrag</span>
+                                <span class="breakdown-item-value" id="co2Ueber">0 g/km</span>
+                            </div>
+                            <div id="co2Details" class="co2-details"></div>
+                            <div class="breakdown-item"
+                                style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 8px; padding-top: 8px;">
+                                <span class="breakdown-item-label">CO2-Steuer gesamt</span>
+                                <span class="breakdown-item-value" id="co2Betrag">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elektro Details -->
+                    <div class="results-breakdown" id="elektroDetails" style="display: none;">
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">⚡</span>
+                                Elektrofahrzeug
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Steuerbefreiung</span>
+                                <span class="breakdown-item-value positive" id="befreiungStatus">Ja, bis
+                                    31.12.2035</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Stats -->
+                    <div class="summary-stats">
+                        <div class="stat-box">
+                            <div class="stat-label">Hubraum-Anteil</div>
+                            <div class="stat-value" id="hubraumSummary">0 €</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">CO2-Anteil</div>
+                            <div class="stat-value" id="co2Summary">0 €</div>
+                        </div>
+                    </div>
+
+                    <!-- Electric Comparison Box -->
+                    <div class="hourly-wage-box" id="elektroVergleich" style="margin-top: var(--spacing-lg);">
+                        <div class="hourly-wage-label">💡 Mit einem Elektroauto sparen Sie</div>
+                        <div class="hourly-wage-value" id="ersparnis">0,00 €</div>
+                        <div class="hourly-wage-subtext">pro Jahr – das sind <strong id="ersparnis10">0 €</strong> in 10
+                            Jahren!</div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Diese Berechnung dient als Orientierung. Für verbindliche Auskünfte nutzen Sie den
+                            offiziellen <a
+                                href="https://www.bundesfinanzministerium.de/Web/DE/Service/Apps_Rechner/Kfz-Steuer-Rechner/kfz-steuer-rechner.html"
+                                target="_blank" rel="noopener">BMF Kfz-Steuer-Rechner</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kfz-steuer.js"></script>
+</body>
+
+</html>

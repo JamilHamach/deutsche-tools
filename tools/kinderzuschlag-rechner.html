@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Kinderzuschlag Rechner 2026 - Berechnen Sie Ihren Anspruch auf den Kinderzuschlag (KiZ) nach den neuesten Gesetzgebungen.">
+    <meta name="keywords" content="Kinderzuschlag Rechner, KiZ, 2026, Deutschland, Familienzuschlag, Kindergeld">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Kinderzuschlag Rechner 2026 | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Kinderzuschlag Rechner 2026</h1>
+                <p>Prüfen Sie schnell und einfach Ihren Anspruch auf den Kinderzuschlag (KiZ) nach den aktuellen Regeln
+                    für 2026.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">🏘️</span>
+                        Ihre Haushaltssituation
+                    </h2>
+
+                    <!-- Parenting Status -->
+                    <div class="form-group">
+                        <label>Familienstand</label>
+                        <select id="parentStatus" class="form-control">
+                            <option value="couple" selected>Paar / Zusammenlebend</option>
+                            <option value="single">Alleinerziehend</option>
+                        </select>
+                    </div>
+
+                    <!-- Kindergeld Prerequisite -->
+                    <div class="form-group">
+                        <label class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="receivesKindergeld" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Erhalten Sie Kindergeld? (Pflicht)</span>
+                        </label>
+                        <small id="kindergeldWarning" style="color: var(--color-error); display: none;">
+                            Kindergeld ist eine zwingende Voraussetzung für den Kinderzuschlag.
+                        </small>
+                    </div>
+
+                    <!-- Gross Income -->
+                    <div class="form-group">
+                        <label>Monatliches Bruttoeinkommen</label>
+                        <div class="income-split-container" id="grossIncomeSplit">
+                            <div class="income-field">
+                                <span class="sub-label">Sie</span>
+                                <div class="input-group">
+                                    <input type="number" id="grossIncome1" class="form-control" placeholder="0"
+                                        value="2500" min="0" step="50">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+                            <div class="income-field" id="grossIncome2Group">
+                                <span class="sub-label">Partner</span>
+                                <div class="input-group">
+                                    <input type="number" id="grossIncome2" class="form-control" placeholder="0"
+                                        value="0" min="0" step="50">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <small>Bruttolohn beider Elternteile. Geben Sie 0 ein, falls jemand nicht arbeitet.</small>
+                    </div>
+
+                    <!-- Net Income -->
+                    <div class="form-group">
+                        <label>Monatliches Nettoeinkommen</label>
+                        <div class="income-split-container" id="netIncomeSplit">
+                            <div class="income-field">
+                                <span class="sub-label">Sie</span>
+                                <div class="input-group">
+                                    <input type="number" id="netIncome1" class="form-control" placeholder="0"
+                                        value="1800" min="0" step="50">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+                            <div class="income-field" id="netIncome2Group">
+                                <span class="sub-label">Partner</span>
+                                <div class="input-group">
+                                    <input type="number" id="netIncome2" class="form-control" placeholder="0" value="0"
+                                        min="0" step="50">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <small>Tatsächlicher Auszahlungsbetrag beider Elternteile.</small>
+                    </div>
+
+                    <!-- Rent / Housing Costs -->
+                    <div class="form-group">
+                        <label for="warmRent">Monatliche Warmmiete (€)</label>
+                        <div class="input-group">
+                            <input type="number" id="warmRent" class="form-control" placeholder="z.B. 800" value="800"
+                                min="0" step="10">
+                            <span class="input-addon">€</span>
+                        </div>
+                    </div>
+
+                    <!-- Wohngeld -->
+                    <div class="form-group">
+                        <label for="wohngeldAmount">Erhalten Sie bereits Wohngeld? (€)</label>
+                        <div class="input-group">
+                            <input type="number" id="wohngeldAmount" class="form-control" placeholder="0" value="0"
+                                min="0" step="10">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small class="form-help">Monatlicher Wohngeldbetrag (falls vorhanden).</small>
+                    </div>
+
+                    <!-- Insurance -->
+                    <div class="form-group">
+                        <label for="kfzInsurance">KFZ-Haftpflicht Beitrag (€)</label>
+                        <div class="input-group">
+                            <input type="number" id="kfzInsurance" class="form-control" placeholder="z.B. 30" value="0"
+                                min="0" step="5">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small class="form-help">Monatlicher Beitrag zur KFZ-Haftpflichtversicherung.</small>
+                    </div>
+
+                    <!-- Children Section -->
+                    <div class="form-group">
+                        <label for="childCount">Anzahl der Kinder im Haushalt</label>
+                        <select id="childCount" class="form-control">
+                            <option value="1" selected>1 Kind</option>
+                            <option value="2">2 Kinder</option>
+                            <option value="3">3 Kinder</option>
+                            <option value="4">4 Kinder</option>
+                            <option value="5">5 Kinder</option>
+                        </select>
+                        <small>Nur Kinder unter 25 Jahren, die Kindergeld erhalten.</small>
+                    </div>
+
+                    <!-- Child Income -->
+                    <div class="form-group">
+                        <label for="childIncome">Einkommen der Kinder gesamt</label>
+                        <div class="input-group">
+                            <input type="number" id="childIncome" class="form-control" placeholder="z.B. 0" value="0"
+                                min="0" step="10">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small>Unterhalt, Unterhaltsvorschuss oder eigenes Einkommen der Kinder.</small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Anspruch berechnen
+                    </button>
+
+                    <!-- Mid-Panel Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: 2rem;">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Berechnetes Ergebnis
+                    </h2>
+
+                    <div class="main-result">
+                        <div class="main-result-label">Kinderzuschlag (pro Monat)</div>
+                        <div class="main-result-value" id="kizAmount">0,00 €</div>
+                        <div class="main-result-subtext" id="kizSubtext">Möglicher Anspruch</div>
+                    </div>
+
+                    <div class="results-breakdown">
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">📋</span>
+                                Zusammenfassung
+                            </div>
+
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Maximaler KiZ</span>
+                                <span class="breakdown-item-value" id="maxKiz">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Kindergeld (erwartet)</span>
+                                <span class="breakdown-item-value" id="kindergeldAmount">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item highlight">
+                                <span class="breakdown-item-label">Gesamt pro Monat</span>
+                                <span class="breakdown-item-value" id="totalBenefit">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p id="resultInfoText">
+                            Der Kinderzuschlag wird meist für 6 Monate gewährt. Wer KiZ erhält, kann zusätzlich von
+                            Kita-Gebühren befreit werden und Gelder für Bildung und Teilhabe erhalten.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kinderzuschlag.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Brutto-Netto Rechner 2026 - Berechnen Sie Ihr Nettogehalt aus dem Bruttogehalt inkl. Steuern und Sozialabgaben nach aktuellem deutschen Steuerrecht.">
+    <meta name="keywords" content="Brutto Netto Rechner, Gehaltsrechner, Nettogehalt, Steuerrechner, 2026, Deutschland">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Brutto-Netto Rechner 2026 | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Brutto-Netto Rechner 2026</h1>
+                <p>Berechnen Sie schnell und präzise Ihr Nettogehalt aus dem Bruttogehalt – inklusive aller Steuern und
+                    Sozialabgaben nach aktuellem deutschen Recht.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📝</span>
+                        Eingaben
+                    </h2>
+
+                    <!-- Salary Input -->
+                    <div class="form-group">
+                        <label for="bruttogehalt">Bruttogehalt</label>
+                        <div class="input-group">
+                            <input type="number" id="bruttogehalt" class="form-control" placeholder="z.B. 4000" min="0"
+                                step="100" value="4000">
+                            <span class="input-addon">€</span>
+                        </div>
+                    </div>
+
+                    <!-- Period Toggle -->
+                    <div class="form-group">
+                        <label>Zeitraum</label>
+                        <div class="radio-tabs">
+                            <div class="radio-tab">
+                                <input type="radio" id="periodMonthly" name="period" value="monthly" checked>
+                                <label for="periodMonthly">Monatlich</label>
+                            </div>
+                            <div class="radio-tab">
+                                <input type="radio" id="periodYearly" name="period" value="yearly">
+                                <label for="periodYearly">Jährlich</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Class -->
+                    <div class="form-group">
+                        <label for="steuerklasse">Steuerklasse</label>
+                        <select id="steuerklasse" class="form-control">
+                            <option value="1">Klasse 1 - Ledig, geschieden, verwitwet</option>
+                            <option value="2">Klasse 2 - Alleinerziehend</option>
+                            <option value="3">Klasse 3 - Verheiratet (Partner verdient weniger)</option>
+                            <option value="4">Klasse 4 - Verheiratet (beide verdienen ähnlich)</option>
+                            <option value="5">Klasse 5 - Verheiratet (Partner hat Klasse 3)</option>
+                            <option value="6">Klasse 6 - Zweitjob</option>
+                        </select>
+                    </div>
+
+                    <!-- Federal State -->
+                    <div class="form-group">
+                        <label for="bundesland">Bundesland</label>
+                        <select id="bundesland" class="form-control">
+                            <option value="baden-wuerttemberg">Baden-Württemberg</option>
+                            <option value="bayern">Bayern</option>
+                            <option value="berlin">Berlin</option>
+                            <option value="brandenburg">Brandenburg</option>
+                            <option value="bremen">Bremen</option>
+                            <option value="hamburg">Hamburg</option>
+                            <option value="hessen">Hessen</option>
+                            <option value="mecklenburg-vorpommern">Mecklenburg-Vorpommern</option>
+                            <option value="niedersachsen">Niedersachsen</option>
+                            <option value="nordrhein-westfalen" selected>Nordrhein-Westfalen</option>
+                            <option value="rheinland-pfalz">Rheinland-Pfalz</option>
+                            <option value="saarland">Saarland</option>
+                            <option value="sachsen">Sachsen</option>
+                            <option value="sachsen-anhalt">Sachsen-Anhalt</option>
+                            <option value="schleswig-holstein">Schleswig-Holstein</option>
+                            <option value="thueringen">Thüringen</option>
+                        </select>
+                    </div>
+
+                    <!-- Church Tax Toggle -->
+                    <div class="form-group">
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="kirchensteuer" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Kirchensteuer zahlen</span>
+                        </div>
+                        <small id="kirchensteuerInfo">Kirchensteuersatz: 9%</small>
+                    </div>
+
+                    <!-- Children -->
+                    <div class="form-group">
+                        <label for="kinder">Anzahl Kinder (unter 25 Jahre)</label>
+                        <select id="kinder" class="form-control">
+                            <option value="0">Keine Kinder</option>
+                            <option value="1">1 Kind</option>
+                            <option value="2">2 Kinder</option>
+                            <option value="3">3 Kinder</option>
+                            <option value="4">4 Kinder</option>
+                            <option value="5">5 oder mehr Kinder</option>
+                        </select>
+                    </div>
+
+                    <!-- Health Insurance Additional Contribution -->
+                    <div class="form-group">
+                        <label for="kvZusatzbeitrag">KV-Zusatzbeitrag (%)</label>
+                        <div class="input-group">
+                            <input type="number" id="kvZusatzbeitrag" class="form-control" value="2.9" step="0.1"
+                                min="0" max="5">
+                            <span class="input-addon">%</span>
+                        </div>
+                        <small>Durchschnitt 2026: 2,9%</small>
+                    </div>
+
+                    <!-- Working Hours (for hourly rate calculation) -->
+                    <div class="form-group">
+                        <label for="arbeitsstunden">Arbeitsstunden pro Woche</label>
+                        <div class="input-group">
+                            <input type="number" id="arbeitsstunden" class="form-control" value="40" step="1" min="1"
+                                max="60">
+                            <span class="input-addon">Std.</span>
+                        </div>
+                        <small>Für Stundenlohn-Berechnung</small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Berechnen
+                    </button>
+
+                    <!-- Mid-Panel Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: 2rem;">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Ergebnisse
+                    </h2>
+
+                    <!-- Main Result -->
+                    <div class="main-result">
+                        <div class="main-result-label">Ihr Nettogehalt</div>
+                        <div class="main-result-value" id="nettogehalt">0,00 €</div>
+                        <div class="main-result-subtext" id="nettogehaltPeriod">pro Monat</div>
+                    </div>
+
+                    <!-- Results Breakdown -->
+                    <div class="results-breakdown">
+                        <!-- Taxes -->
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">📋</span>
+                                Steuern
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Lohnsteuer</span>
+                                <span class="breakdown-item-value negative" id="lohnsteuer">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Solidaritätszuschlag</span>
+                                <span class="breakdown-item-value negative" id="soli">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item" id="kirchensteuerRow">
+                                <span class="breakdown-item-label">Kirchensteuer</span>
+                                <span class="breakdown-item-value negative" id="kirchensteuerBetrag">0,00 €</span>
+                            </div>
+                        </div>
+
+                        <!-- Social Security -->
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">🏥</span>
+                                Sozialabgaben
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Rentenversicherung</span>
+                                <span class="breakdown-item-value negative" id="rentenversicherung">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Krankenversicherung</span>
+                                <span class="breakdown-item-value negative" id="krankenversicherung">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Pflegeversicherung</span>
+                                <span class="breakdown-item-value negative" id="pflegeversicherung">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Arbeitslosenversicherung</span>
+                                <span class="breakdown-item-value negative" id="arbeitslosenversicherung">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hourly Wage -->
+                    <div class="hourly-wage-box">
+                        <div class="hourly-wage-label">Ihr Netto-Stundenlohn</div>
+                        <div class="hourly-wage-value" id="stundenlohn">0,00 €</div>
+                        <div class="hourly-wage-subtext">pro Stunde</div>
+                    </div>
+
+                    <!-- Summary Stats -->
+                    <div class="summary-stats">
+                        <div class="stat-box">
+                            <div class="stat-label">Brutto/Jahr</div>
+                            <div class="stat-value" id="bruttoJahr">0 €</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Netto/Jahr</div>
+                            <div class="stat-value" id="nettoJahr">0 €</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Abzüge gesamt</div>
+                            <div class="stat-value" id="abzuegeGesamt">0 €</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Abzugsquote</div>
+                            <div class="stat-value" id="abzugsquote">0 %</div>
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Diese Berechnung dient als Orientierung. Für verbindliche Auskünfte wenden Sie sich bitte an
+                            einen Steuerberater oder nutzen Sie den offiziellen <a
+                                href="https://www.bmf-steuerrechner.de" target="_blank"
+                                rel="noopener">BMF-Steuerrechner</a>.</p>
+                    </div>
+
+                    <!-- Bottom Results Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/brutto-netto.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesamt-Einkommensrechner 2026 - Alle Einnahmen im Blick | Deutsche Tools</title>
+    <meta name="description"
+        content="Berechnen Sie Ihr gesamtes monatliches Nettoeinkommen inklusive Kindergeld, Wohngeld, BAföG und anderen Sozialleistungen in Deutschland.">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="calculator-section">
+            <div class="container">
+                <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                    <span class="ad-placeholder-text">Werbung</span>
+                </div>
+
+                <div class="calculator-header">
+                    <h1>Gesamt-Einkommensrechner</h1>
+                    <p>Behalten Sie den Überblick über Ihr gesamtes Haushaltsbudget. Kombinieren Sie Gehalt,
+                        Sozialleistungen und sonstige Einnahmen zu einem Gesamtergebnis.</p>
+                </div>
+
+                <div class="calculator-wrapper">
+                    <!-- Input Panel -->
+                    <div class="input-panel">
+                        <div class="panel-title">
+                            <span class="icon">💰</span>
+                            <h2>Ihre Einnahmen</h2>
+                        </div>
+
+                        <form id="einkommenForm">
+                            <!-- Arbeit & Gehalt -->
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">💼</span> Arbeit & Gehalt
+                                </div>
+                                <div class="form-group">
+                                    <label for="nettoGehalt">Netto-Haupteinkommen (monatlich)</label>
+                                    <div class="input-group">
+                                        <input type="number" id="nettoGehalt" class="form-control" placeholder="0"
+                                            min="0">
+                                        <span class="input-addon">€</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="minijob">Nebenjob / Minijob</label>
+                                    <div class="input-group">
+                                        <input type="number" id="minijob" class="form-control" placeholder="0" min="0">
+                                        <span class="input-addon">€</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Familie -->
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">👨‍👩‍👧‍👦</span> Familie & Kinder
+                                </div>
+                                <div class="form-group">
+                                    <label for="kindergeld">Kindergeld</label>
+                                    <div class="input-group">
+                                        <input type="number" id="kindergeld" class="form-control" placeholder="0"
+                                            min="0">
+                                        <span class="input-addon">€</span>
+                                    </div>
+                                    <small>2026: 255€ pro Kind (geplant)</small>
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label for="kinderzuschlag">Kinderzuschlag</label>
+                                        <div class="input-group">
+                                            <input type="number" id="kinderzuschlag" class="form-control"
+                                                placeholder="0" min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="elterngeld">Elterngeld</label>
+                                        <div class="input-group">
+                                            <input type="number" id="elterngeld" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="unterhalt">Unterhalt / Unterhaltsvorschuss</label>
+                                    <div class="input-group">
+                                        <input type="number" id="unterhalt" class="form-control" placeholder="0"
+                                            min="0">
+                                        <span class="input-addon">€</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Wohnen & Soziales -->
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">🏠</span> Wohnen & Soziales
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label for="wohngeld">Wohngeld</label>
+                                        <div class="input-group">
+                                            <input type="number" id="wohngeld" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="buergergeld">Bürgergeld (Regelsatz)</label>
+                                        <div class="input-group">
+                                            <input type="number" id="buergergeld" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pflegegeld">Pflegegeld</label>
+                                    <div class="input-group">
+                                        <input type="number" id="pflegegeld" class="form-control" placeholder="0"
+                                            min="0">
+                                        <span class="input-addon">€</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bildung & Sonstiges -->
+                            <div class="breakdown-section">
+                                <div class="breakdown-title">
+                                    <span class="icon">🎓</span> Sonstiges
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label for="bafoeg">BAföG</label>
+                                        <div class="input-group">
+                                            <input type="number" id="bafoeg" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rente">Rente</label>
+                                        <div class="input-group">
+                                            <input type="number" id="rente" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label for="mieteinnahmen">Mieteinnahmen (Netto)</label>
+                                        <div class="input-group">
+                                            <input type="number" id="mieteinnahmen" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sonstiges">Sonstiges</label>
+                                        <div class="input-group">
+                                            <input type="number" id="sonstiges" class="form-control" placeholder="0"
+                                                min="0">
+                                            <span class="input-addon">€</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel">
+                        <div class="panel-title">
+                            <span class="icon">📊</span>
+                            <h2>Zusammenfassung</h2>
+                        </div>
+
+                        <div class="main-result">
+                            <div class="main-result-label">Gesamt Monatliches Einkommen</div>
+                            <div class="main-result-value" id="totalMonthly">0,00 €</div>
+                            <div class="main-result-subtext" id="totalYearly">Jährlich: 0,00 €</div>
+                        </div>
+
+                        <div class="results-breakdown">
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Arbeit & Gehalt</span>
+                                <span class="breakdown-item-value" id="resArbeit">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Familie & Kinder</span>
+                                <span class="breakdown-item-value" id="resFamilie">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Wohnen & Soziales</span>
+                                <span class="breakdown-item-value" id="resWohnen">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Sonstige Einnahmen</span>
+                                <span class="breakdown-item-value" id="resSonstiges">0,00 €</span>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="icon">💡</span>
+                            <p>Dieses Ergebnis stellt das verfügbare Haushaltseinkommen nach Steuern und Sozialabgaben
+                                dar.</p>
+                        </div>
+
+                        <div class="ad-placeholder ad-rectangle ad-sidebar">
+                            <span class="ad-placeholder-text">Werbung</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/einkommens.js"></script>
+</body>
+
+</html>

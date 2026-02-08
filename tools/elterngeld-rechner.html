@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Elterngeld Rechner 2026 - Berechnen Sie Ihr voraussichtliches Elterngeld nach aktuellen Regelungen.">
+    <meta name="keywords" content="Elterngeld Rechner, Basiselterngeld, ElterngeldPlus, 2026, Deutschland, Elternzeit">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Elterngeld Rechner 2026 | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Elterngeld Rechner 2026</h1>
+                <p>Berechnen Sie Ihren Anspruch auf Basiselterngeld und ElterngeldPlus nach den aktuellen Regelungen für
+                    Geburten ab 2026.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">👶</span>
+                        Ihre Angaben
+                    </h2>
+
+                    <!-- Income Limit Check -->
+                    <div class="form-group">
+                        <label>Zu versteuerndes Einkommen (Vorjahr)</label>
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="incomeLimitExceeded">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Über 175.000 € (Paare & Alleinerziehende)?</span>
+                        </div>
+                        <small style="color: var(--color-error); display: none;" id="incomeError">
+                            Achtung: Bei einem zu versteuernden Einkommen über 175.000 € besteht ab 2024/2025 kein
+                            Anspruch mehr auf Elterngeld.
+                        </small>
+                    </div>
+
+                    <!-- Net Income -->
+                    <div class="form-group" id="incomeGroup">
+                        <label>Nettoeinkommen (Ø letzte 12 Monate)</label>
+
+                        <!-- Partner Toggle -->
+                        <div class="toggle-group" style="margin-bottom: 1rem;">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="hasPartner">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Mit Partner berechnen?</span>
+                        </div>
+
+                        <div class="income-inputs" style="display: grid; gap: 1rem; grid-template-columns: 1fr;">
+                            <!-- Parent 1 -->
+                            <div class="income-field">
+                                <label for="netIncome"
+                                    style="font-size: 0.9rem; color: var(--color-text-secondary);">Ihr Netto</label>
+                                <div class="input-group">
+                                    <input type="number" id="netIncome" class="form-control" placeholder="z.B. 2000"
+                                        min="0" step="10">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+
+                            <!-- Parent 2 -->
+                            <div class="income-field" id="partnerIncomeGroup" style="display: none;">
+                                <label for="partnerNetIncome"
+                                    style="font-size: 0.9rem; color: var(--color-text-secondary);">Netto Partner</label>
+                                <div class="input-group">
+                                    <input type="number" id="partnerNetIncome" class="form-control"
+                                        placeholder="z.B. 2500" min="0" step="10">
+                                    <span class="input-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                        <small>Durchschnittliches Netto im Bemessungszeitraum vor der Geburt (ohne
+                            Einmalzahlungen).</small>
+                    </div>
+
+                    <!-- Multiple Births -->
+                    <div class="form-group">
+                        <label>Mehrlingsgeburt?</label>
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="isMultiple">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Ja (Zwillinge, Drillinge...)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="multipleCountGroup" style="display: none;">
+                        <label for="childCount">Anzahl der Neugeborenen</label>
+                        <input type="number" id="childCount" class="form-control" value="2" min="1" max="5">
+                    </div>
+
+                    <!-- Sibling Bonus -->
+                    <div class="form-group">
+                        <label>Geschwisterbonus?</label>
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="hasSibling">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Ja (Älteres Kind im Haushalt)</span>
+                        </div>
+                        <small>Berechtigt, wenn ein Geschwisterkind unter 3 Jahren (oder 2 unter 6 Jahren) im Haushalt
+                            lebt.</small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Anspruch berechnen
+                    </button>
+
+                    <!-- Mid-Panel Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: 2rem;">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Ihr Ergebnis
+                    </h2>
+
+                    <!-- Main Result: Basiselterngeld -->
+                    <div class="main-result">
+                        <div class="main-result-label">Basiselterngeld (pro Monat)</div>
+
+                        <div class="result-grid" style="display: grid; gap: 2rem; grid-template-columns: 1fr;">
+                            <!-- Parent 1 Result -->
+                            <div class="parent-result">
+                                <div class="result-label-small"
+                                    style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.2rem;">
+                                    Ihr Anspruch</div>
+                                <div class="main-result-value" id="basisElterngeld">0,00 €</div>
+                                <div class="hourly-wage-value" id="plusElterngeld"
+                                    style="font-size: 1.2rem; color: var(--color-text-secondary);">0,00 € (Plus)</div>
+                            </div>
+
+                            <!-- Parent 2 Result -->
+                            <div class="parent-result" id="partnerResult"
+                                style="display: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                                <div class="result-label-small"
+                                    style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.2rem;">
+                                    Anspruch Partner</div>
+                                <div class="main-result-value" id="partnerBasisElterngeld">0,00 €</div>
+                                <div class="hourly-wage-value" id="partnerPlusElterngeld"
+                                    style="font-size: 1.2rem; color: var(--color-text-secondary);">0,00 € (Plus)</div>
+                            </div>
+                        </div>
+
+                        <div class="main-result-subtext" style="margin-top: 1rem;">für max. 14 Monate (bei
+                            Partnermonaten)</div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="results-breakdown">
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">📝</span>
+                                Berechnung
+                            </div>
+
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Berücksichtigtes Netto</span>
+                                <span class="breakdown-item-value" id="calcNetto">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Ersatzrate</span>
+                                <span class="breakdown-item-value" id="calcRate">0 %</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Mehrlingszuschlag</span>
+                                <span class="breakdown-item-value" id="calcMultiple">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Geschwisterbonus</span>
+                                <span class="breakdown-item-value" id="calcSibling">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Dies ist eine unverbindliche Berechnung. Der tatsächliche Anspruch wird von der
+                            Elterngeldstelle geprüft.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/elterngeld.js"></script>
+</body>
+
+</html>

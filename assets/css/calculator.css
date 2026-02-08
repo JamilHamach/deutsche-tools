@@ -1,0 +1,652 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Brutto-Netto Rechner - Calculator Styles
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Calculator Container
+   ───────────────────────────────────────────────────────────────────────────── */
+.calculator-section {
+    padding: calc(100px + var(--spacing-2xl)) 0 var(--spacing-3xl);
+    min-height: 100vh;
+}
+
+.calculator-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-2xl);
+}
+
+.calculator-header h1 {
+    margin-bottom: var(--spacing-md);
+}
+
+.calculator-header p {
+    font-size: 1.125rem;
+}
+
+.calculator-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Input Panel
+   ───────────────────────────────────────────────────────────────────────────── */
+.input-panel {
+    background: var(--gradient-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(10px);
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+}
+
+.panel-title .icon {
+    font-size: 1.5rem;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.form-group small {
+    display: block;
+    margin-top: var(--spacing-xs);
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+/* Input Fields */
+.form-control {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.form-control::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* Input with Addon */
+.input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.input-addon {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacing-md);
+    background: rgba(30, 58, 95, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: none;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+/* Date Selector Group */
+.date-selector-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.date-selector-group select {
+    flex: 1;
+}
+
+/* Select Dropdown */
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    padding-right: var(--spacing-2xl);
+}
+
+select.form-control option {
+    background: var(--color-bg-dark);
+    color: var(--color-text-primary);
+}
+
+/* Toggle Switch */
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(100, 116, 139, 0.4);
+    border-radius: 28px;
+    transition: all var(--transition-fast);
+}
+
+.toggle-slider::before {
+    position: absolute;
+    content: '';
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--color-text-primary);
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+}
+
+.toggle-switch input:checked+.toggle-slider {
+    background: var(--color-accent);
+}
+
+.toggle-switch input:checked+.toggle-slider::before {
+    transform: translateX(24px);
+}
+
+.toggle-label {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Radio Group (Tabs Style) */
+.radio-tabs {
+    display: flex;
+    gap: var(--spacing-xs);
+    background: rgba(15, 23, 42, 0.6);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.radio-tab {
+    flex: 1;
+}
+
+.radio-tab input {
+    display: none;
+}
+
+.radio-tab label {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: center;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+    margin: 0;
+}
+
+.radio-tab input:checked+label {
+    background: var(--color-accent);
+    color: var(--color-bg-dark);
+}
+
+.radio-tab label:hover {
+    color: var(--color-text-primary);
+}
+
+/* Calculate Button */
+.btn-calculate {
+    width: 100%;
+    padding: var(--spacing-lg);
+    font-size: 1.125rem;
+    margin-top: var(--spacing-md);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Results Panel
+   ───────────────────────────────────────────────────────────────────────────── */
+.results-panel {
+    background: var(--gradient-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(10px);
+}
+
+/* Main Result */
+.main-result {
+    text-align: center;
+    padding: var(--spacing-xl);
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.main-result-label {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-result-value {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+}
+
+.main-result-subtext {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+/* Results Breakdown */
+.results-breakdown {
+    margin-bottom: var(--spacing-xl);
+}
+
+.breakdown-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.breakdown-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.breakdown-title .icon {
+    font-size: 1.1rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+}
+
+.breakdown-item-label {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.breakdown-item-value {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.breakdown-item-value.negative {
+    color: var(--color-error);
+}
+
+.breakdown-item-value.positive {
+    color: var(--color-success);
+}
+
+/* Hourly Wage Box */
+.hourly-wage-box {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.hourly-wage-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.hourly-wage-value {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-success);
+}
+
+.hourly-wage-subtext {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+/* Summary Stats */
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.stat-box {
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CO2 Details (KFZ-Steuer)
+   ───────────────────────────────────────────────────────────────────────────── */
+.co2-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) 0;
+}
+
+.breakdown-subitem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: var(--radius-sm);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Info Boxes
+   ───────────────────────────────────────────────────────────────────────────── */
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(56, 189, 248, 0.1);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--spacing-lg) 0;
+}
+
+.info-box .icon {
+    font-size: 1.25rem;
+    color: var(--color-accent);
+}
+
+.info-box p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Responsive Adjustments
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .calculator-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-section {
+        padding-top: calc(60px + var(--spacing-xl));
+    }
+
+    .main-result-value {
+        font-size: 2.5rem;
+    }
+
+    .summary-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .input-panel,
+    .results-panel {
+        padding: var(--spacing-lg);
+    }
+
+    .radio-tabs {
+        flex-direction: column;
+    }
+
+    .main-result-value {
+        font-size: 2rem;
+    }
+
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   AdSense Placeholders
+   ───────────────────────────────────────────────────────────────────────────── */
+
+
+.ad-placeholder::before {
+    content: 'ANZEIGE';
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+    opacity: 0.5;
+}
+
+.ad-placeholder:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ad-placeholder.ad-leaderboard {
+    width: 100%;
+    min-height: 90px;
+    max-height: 120px;
+}
+
+.ad-placeholder.ad-rectangle {
+    width: 100%;
+    min-height: 250px;
+}
+
+.ad-placeholder-text {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Specific placements */
+.ad-top-banner {
+    margin-top: 0;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.ad-bottom-banner {
+    margin-bottom: 0;
+    margin-top: var(--spacing-2xl);
+}
+
+.ad-sidebar {
+    margin: var(--spacing-lg) 0;
+}
+
+/* Income Split Container */
+.income-split-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.income-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.sub-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Grid Helper */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+}
+
+@media (max-width: 480px) {
+
+    .grid-2,
+    .income-split-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-container:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.toggle-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked+.slider {
+    background-color: var(--color-primary);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--color-primary);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kündigungsschreiben Generator 2026 - Vertrag rechtssicher kündigen</title>
+    <meta name="description"
+        content="Erstellen Sie rechtssichere Kündigungsschreiben für Arbeitsverträge, Mietverträge und mehr. Kostenlos als PDF zum Download.">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 2;
+            background: var(--color-bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-item.completed {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .preview-container {
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+            font-family: 'Arial', sans-serif;
+            margin-top: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            font-size: 0.85rem;
+        }
+
+        .preview-recipient {
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        .preview-subject {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .preview-body {
+            line-height: 1.6;
+            margin-bottom: 40px;
+            white-space: pre-line;
+            font-size: 0.95rem;
+        }
+
+        .preview-signature {
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 40px;
+        }
+
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-xl);
+            gap: var(--spacing-md);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Vertrag Kündigen <span class="badge">2026</span></h1>
+                <p>Erstellen Sie Ihr rechtssicheres Kündigungsschreiben in wenigen Schritten.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Form Area -->
+                <div class="input-panel">
+                    <div class="step-indicator">
+                        <div class="step-item active" data-step="1">1</div>
+                        <div class="step-item" data-step="2">2</div>
+                        <div class="step-item" data-step="3">3</div>
+                        <div class="step-item" data-step="4">4</div>
+                    </div>
+
+                    <form id="kuendigungForm">
+                        <!-- Step 1: Contract Type -->
+                        <div class="form-step active" id="step1">
+                            <h3 class="mb-lg">Was möchten Sie kündigen?</h3>
+                            <div class="form-group">
+                                <label for="contractType">Vertragsart</label>
+                                <select id="contractType" class="form-control">
+                                    <option value="arbeit">Arbeitsvertrag</option>
+                                    <option value="wohnung">Mietvertrag</option>
+                                    <option value="versicherung">Versicherung</option>
+                                    <option value="fitness">Fitnessstudio</option>
+                                    <option value="internet">Internet / DSL</option>
+                                    <option value="sonstiges">Sonstiger Vertrag</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="kuendigungOption">Kündigungsart</label>
+                                <select id="kuendigungOption" class="form-control">
+                                    <option value="ordentlich">Ordentliche Kündigung (Frisgerecht)</option>
+                                    <option value="fristlos">Außerordentliche Kündigung (Fristlos)</option>
+                                    <option value="nicht_verlaengern">Nichtverlängerung des befristeten Vertrags
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Personal Data -->
+                        <div class="form-step" id="step2">
+                            <h3 class="mb-lg">Ihre persönlichen Daten</h3>
+                            <div class="form-group">
+                                <label for="userName">Vollständiger Name</label>
+                                <input type="text" id="userName" class="form-control" placeholder="Vorname Nachname">
+                            </div>
+                            <div class="form-group">
+                                <label for="userAddress">Straße & Hausnummer</label>
+                                <input type="text" id="userAddress" class="form-control" placeholder="Musterstr. 1">
+                            </div>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="userZip">PLZ</label>
+                                    <input type="text" id="userZip" class="form-control" placeholder="12345">
+                                </div>
+                                <div class="form-group">
+                                    <label for="userCity">Stadt</label>
+                                    <input type="text" id="userCity" class="form-control" placeholder="Berlin">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Recipient Data -->
+                        <div class="form-step" id="step3">
+                            <h3 class="mb-lg">Daten des Empfängers</h3>
+                            <div class="form-group">
+                                <label for="compName">Name der Firma / Vermieter</label>
+                                <input type="text" id="compName" class="form-control" placeholder="Firmenname GmbH">
+                            </div>
+                            <div class="form-group">
+                                <label for="compAddress">Straße & Hausnummer</label>
+                                <input type="text" id="compAddress" class="form-control" placeholder="Hauptstr. 100">
+                            </div>
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="compZip">PLZ</label>
+                                    <input type="text" id="compZip" class="form-control" placeholder="10115">
+                                </div>
+                                <div class="form-group">
+                                    <label for="compCity">Stadt</label>
+                                    <input type="text" id="compCity" class="form-control" placeholder="Berlin">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="refNumber">Kundennummer / Personalnummer (optional)</label>
+                                <input type="text" id="refNumber" class="form-control" placeholder="z.B. KD-99232">
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Dates & Conclusion -->
+                        <div class="form-step" id="step4">
+                            <h3 class="mb-lg">Zeitpunkt & Details</h3>
+                            <div class="form-group">
+                                <label for="creationDate">Datum des Schreibens</label>
+                                <input type="date" id="creationDate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">Kündigungsdatum (Ende des Vertrags)</label>
+                                <input type="text" id="endDate" class="form-control"
+                                    placeholder="z.B. 31.03.2026 oder 'nächstmöglich'">
+                                <small style="color: var(--color-text-secondary); display: block; margin-top: 5px;">
+                                    Tipp: Geben Sie ein konkretes Datum an oder "nächstmöglich".
+                                </small>
+                            </div>
+
+                            <div id="fristlosReasonGroup" class="form-group" style="display: none;">
+                                <label for="fristlosReason">Wichtiger Grund (für fristlose Kündigung)</label>
+                                <textarea id="fristlosReason" class="form-control" rows="3"
+                                    placeholder="Beschreiben Sie hier den schwerwiegenden Grund..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="step-nav">
+                            <button type="button" id="prevBtn" class="btn btn-outline"
+                                style="display: none;">Zurück</button>
+                            <button type="button" id="nextBtn" class="btn btn-primary">Weiter</button>
+                            <button type="button" id="downloadBtn" class="btn btn-primary" style="display: none;">
+                                <i class="fas fa-file-pdf"></i> PDF herunterladen
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="results-panel">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 class="mb-0">Vorschau</h3>
+                        <span id="previewLoading" style="display: none;"><i class="fas fa-sync fa-spin"></i></span>
+                    </div>
+
+                    <div class="preview-container" id="pdfPreview">
+                        <div class="preview-header">
+                            <div id="pvSender">
+                                <strong>Max Mustermann</strong><br>
+                                Musterstr. 1<br>
+                                12345 Berlin
+                            </div>
+                            <div id="pvDate">Berlin, den 08.02.2026</div>
+                        </div>
+
+                        <div class="preview-recipient" id="pvRecipient">
+                            Firmenname GmbH<br>
+                            Hauptstr. 100<br>
+                            10115 Berlin
+                        </div>
+
+                        <div class="preview-subject" id="pvSubject">
+                            Kündigung meines Arbeitsverhältnisses
+                        </div>
+
+                        <div class="preview-body" id="pvBody">
+                            Sehr geehrte Damen und Herren,
+
+                            hiermit kündige ich meinen oben genannten Vertrag ordentlich und fristgerecht zum
+                            nächstmöglichen Zeitpunkt.
+
+                            Bitte bestätigen Sie mir den Erhalt dieser Kündigung sowie das Beendigungsdatum schriftlich.
+
+                            Mit freundlichen Grüßen,
+                        </div>
+
+                        <div class="preview-signature">
+                            <br>
+                            ___________________________<br>
+                            <span id="pvSignatureName">Max Mustermann</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box mt-lg">
+                        <span class="icon">⚠️</span>
+                        <p style="font-size: 0.85rem; color: var(--color-text-secondary);">
+                            <strong>Hinweis:</strong> Dieses Dokument ist nur mit einer eigenhändigen Unterschrift auf
+                            Papier rechtssicher (Schriftform gemäß § 623 BGB bei Arbeitsverträgen).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad placeholder -->
+    <div class="container ad-margin">
+        <div class="ad-placeholder ad-leaderboard">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kuendigung.js"></script>
+</body>
+
+</html>

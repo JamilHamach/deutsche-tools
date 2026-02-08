@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Wohngeld Rechner 2026 - Berechnen Sie Ihren Anspruch auf Wohngeld nach den aktuellen Gesetzen und Miethöchstbeträgen für 2026.">
+    <meta name="keywords" content="Wohngeld Rechner, Wohngeld, Mietzuschuss, 2026, 2025, Deutschland, Wohngeld Plus">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Wohngeld Rechner 2026 | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Wohngeld Rechner 2026</h1>
+                <p>Berechnen Sie Ihren voraussichtlichen Anspruch auf Wohngeld (Mietzuschuss) basierend auf den
+                    aktuellen Werten für 2026.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">🏠</span>
+                        Ihre Angaben
+                    </h2>
+
+                    <!-- Household Size -->
+                    <div class="form-group">
+                        <label for="householdSize">Haushaltsmitglieder</label>
+                        <select id="householdSize" class="form-control">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Personen</option>
+                            <option value="3">3 Personen</option>
+                            <option value="4">4 Personen</option>
+                            <option value="5">5 Personen</option>
+                            <option value="6">6 Personen</option>
+                            <option value="7">7 Personen</option>
+                            <option value="8">8 Personen</option>
+                        </select>
+                        <small>Anzahl der zu berücksichtigenden Haushaltsmitglieder.</small>
+                    </div>
+
+                    <!-- Gross Income -->
+                    <div class="form-group">
+                        <label for="grossIncome">Bruttoeinkommen (Jährlich)</label>
+                        <div class="input-group">
+                            <input type="number" id="grossIncome" class="form-control" placeholder="z.B. 33000" min="0"
+                                step="100">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small>Gesamtes Bruttoeinkommen aller Haushaltsmitglieder pro Jahr.</small>
+                    </div>
+
+                    <!-- Werbungskosten -->
+                    <div class="form-group">
+                        <label for="werbungskosten">Werbungskosten (Jährlich)</label>
+                        <div class="input-group">
+                            <input type="number" id="werbungskosten" class="form-control" value="1230" min="0"
+                                step="10">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small>Arbeitnehmer-Pauschbetrag sind 1.230 €.</small>
+                    </div>
+
+                    <!-- Deductions -->
+                    <div class="form-group">
+                        <label>Abzüge (Pauschalen)</label>
+                        <div
+                            style="display: flex; flex-direction: column; gap: 0.5rem; background: rgba(15, 23, 42, 0.4); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.1);">
+                            <label
+                                style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                <input type="checkbox" id="deductTax" checked> Steuern (Lohnsteuer/Einkommensteuer)
+                            </label>
+                            <label
+                                style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                <input type="checkbox" id="deductHealth" checked> Krankenkasse / Pflegeversicherung
+                            </label>
+                            <label
+                                style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                                <input type="checkbox" id="deductPension" checked> Rentenversicherung
+                            </label>
+                        </div>
+                        <small>Je 10% Abzug vom Brutto, wenn Beiträge gezahlt werden.</small>
+                    </div>
+
+                    <!-- Rent -->
+                    <div class="form-group">
+                        <label for="coldRent">Bruttokaltmiete (Monatlich)</label>
+                        <div class="input-group">
+                            <input type="number" id="coldRent" class="form-control" placeholder="z.B. 600" min="0"
+                                step="10">
+                            <span class="input-addon">€</span>
+                        </div>
+                        <small>Miete inkl. kalter Nebenkosten, <b>ohne</b> Heizung & Warmwasser.</small>
+                    </div>
+
+                    <!-- Rent Level (Mietstufe) -->
+                    <div class="form-group">
+                        <label for="citySearch">Mietstufe Ihrer Stadt/Gemeinde</label>
+
+                        <div class="city-search-container" style="position: relative;">
+                            <input type="text" id="citySearch" class="form-control"
+                                placeholder="Stadt eingeben (z.B. Berlin)..." autocomplete="off">
+                            <div id="citySuggestions" class="suggestions-dropdown"
+                                style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-bg-light); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem; z-index: 10; max-height: 200px; overflow-y: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                            </div>
+                        </div>
+
+                        <div id="mietstufeFeedback"
+                            style="display: none; margin-top: 0.5rem; background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.5rem; border-radius: 0.25rem; font-size: 0.9rem;">
+                            ✅ Mietstufe <span id="detectedLevel"></span> übernommen.
+                        </div>
+
+                        <div id="manualMietstufe" style="margin-top: 1rem; display: none;">
+                            <label for="rentLevel" style="font-size: 0.9rem; color: var(--color-text-muted);">Manuelle
+                                Auswahl (falls Stadt nicht gefunden):</label>
+                            <select id="rentLevel" class="form-control">
+                                <option value="1">Stufe 1 (Günstig)</option>
+                                <option value="2">Stufe 2</option>
+                                <option value="3">Stufe 3</option>
+                                <option value="4">Stufe 4 (Durchschnitt)</option>
+                                <option value="5">Stufe 5</option>
+                                <option value="6">Stufe 6</option>
+                                <option value="7">Stufe 7 (Teuer, z.B. München)</option>
+                            </select>
+                        </div>
+
+                        <small style="margin-top: 0.5rem; display: block;">
+                            <a href="#" id="toggleManual"
+                                style="color: var(--color-accent); text-decoration: underline; font-size: 0.85rem;">Nicht
+                                gefunden? Manuell wählen</a>
+                        </small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Wohngeld berechnen
+                    </button>
+
+                    <!-- Mid-Panel Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle" style="margin-top: 2rem;">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Ihr Ergebnis
+                    </h2>
+
+                    <!-- Main Result -->
+                    <div class="main-result">
+                        <div class="main-result-label">Voraussichtliches Wohngeld</div>
+                        <div class="main-result-value" id="wohngeldResult">0,00 €</div>
+                        <div class="main-result-subtext">pro Monat</div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="results-breakdown">
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">📝</span>
+                                Berechnungsgrundlagen
+                            </div>
+
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Anrechenbares Einkommen (Y)</span>
+                                <span class="breakdown-item-value" id="calcIncome">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Berücksichtigungsfähige Miete (M)</span>
+                                <span class="breakdown-item-value" id="calcRent">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item"
+                                style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 5px; margin-top: 5px;">
+                                <span class="breakdown-item-label">Tatsächliche Miete</span>
+                                <span class="breakdown-item-value" id="displayActualRent">0,00 €</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Höchstbetrag (inkl. Zuschläge)</span>
+                                <span class="breakdown-item-value" id="displayMaxRent">0,00 €</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Dies ist eine unverbindliche Berechnung. Der tatsächliche Anspruch wird von der
+                            Wohngeldstelle geprüft. <br>Hinweis: Heizkosten werden pauschal über die Miete-Höchstbeträge
+                            berücksichtigt.</p>
+                    </div>
+
+                    <!-- Bottom Results Ad Placeholder -->
+                    <div class="ad-placeholder ad-rectangle">
+                        <span class="ad-placeholder-text">Werbung - Rectangle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/mietstufen_data.js"></script>
+    <script src="../assets/js/wohngeld.js"></script>
+</body>
+
+</html>

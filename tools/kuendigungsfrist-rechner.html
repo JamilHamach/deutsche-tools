@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Kündigungsfrist Rechner - Berechnen Sie Ihre gesetzliche Kündigungsfrist nach § 622 BGB basierend auf Ihrer Betriebszugehörigkeit.">
+    <meta name="keywords"
+        content="Kündigungsfrist Rechner, Kündigung, Arbeitsrecht, BGB 622, Kündigungsfrist berechnen, Deutschland">
+    <meta name="author" content="Deutsche Tools">
+
+    <title>Kündigungsfrist Rechner | Deutsche Tools</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/calculator.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header"></div>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="ad-placeholder ad-leaderboard ad-top-banner">
+                <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+            </div>
+
+            <div class="calculator-header">
+                <h1>Kündigungsfrist Rechner</h1>
+                <p>Berechnen Sie Ihre gesetzliche Kündigungsfrist (für Arbeitgeber) basierend auf der Dauer Ihrer
+                    Betriebszugehörigkeit gemäß § 622 BGB.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📅</span>
+                        Daten eingeben
+                    </h2>
+
+                    <!-- Start Date -->
+                    <div class="form-group">
+                        <label>Arbeitsbeginn</label>
+                        <div class="date-selector-group">
+                            <select id="start_tag" class="form-control date-select" aria-label="Tag"></select>
+                            <select id="start_monat" class="form-control date-select" aria-label="Monat"></select>
+                            <select id="start_jahr" class="form-control date-select" aria-label="Jahr"></select>
+                        </div>
+                        <input type="hidden" id="startDate">
+                        <small>Datum des Eintritts in das Unternehmen</small>
+                    </div>
+
+                    <!-- Termination Date -->
+                    <div class="form-group">
+                        <label>Kündigungsdatum (optional)</label>
+                        <div class="date-selector-group">
+                            <select id="end_tag" class="form-control date-select" aria-label="Tag"></select>
+                            <select id="end_monat" class="form-control date-select" aria-label="Monat"></select>
+                            <select id="end_jahr" class="form-control date-select" aria-label="Jahr"></select>
+                        </div>
+                        <input type="hidden" id="endDate">
+                        <small>Leer lassen für "Heute"</small>
+                    </div>
+
+                    <!-- Role Toggle -->
+                    <div class="form-group">
+                        <label>Berechnungsgrundlage</label>
+                        <div class="radio-group" style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="radio" name="role" value="employer" checked>
+                                Gesetzliche Frist für Arbeitgeber
+                            </label>
+                        </div>
+                        <small>Die verlängerten Fristen nach § 622 Abs. 2 BGB gelten gesetzlich für Kündigungen durch
+                            den Arbeitgeber, werden aber oft vertraglich auch für Arbeitnehmer vereinbart.</small>
+                    </div>
+
+                    <!-- Calculate Button -->
+                    <button id="calculateBtn" class="btn btn-primary btn-calculate">
+                        🛠️ Frist berechnen
+                    </button>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h2 class="panel-title">
+                        <span class="icon">📊</span>
+                        Ergebnis
+                    </h2>
+
+                    <!-- Main Result -->
+                    <div class="main-result">
+                        <div class="main-result-label">Ihre Kündigungsfrist</div>
+                        <div class="main-result-value" id="noticePeriodResult">-</div>
+                        <div class="main-result-subtext" id="tenureInfo"></div>
+                    </div>
+
+                    <!-- Termination Date Details -->
+                    <div class="results-breakdown" id="terminationDetails" style="display: none;">
+                        <div class="breakdown-section">
+                            <div class="breakdown-title">
+                                <span class="icon">🔚</span>
+                                Vertragsende
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Kündigung am</span>
+                                <span class="breakdown-item-value" id="termDateDisplay">-</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-item-label">Letzter Arbeitstag</span>
+                                <span class="breakdown-item-value positive" id="lastWorkDay">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <span class="icon">ℹ️</span>
+                        <p>Hinweis: Tarifverträge oder individuelle Arbeitsverträge können abweichende Regelungen
+                            enthalten.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="container">
+        <div class="ad-placeholder ad-leaderboard ad-bottom-banner">
+            <span class="ad-placeholder-text">Werbung - Leaderboard</span>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kuendigungsfrist.js"></script>
+</body>
+
+</html>
